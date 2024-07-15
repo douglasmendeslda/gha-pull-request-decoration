@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v43/github"
 	"golang.org/x/oauth2"
 )
 
@@ -16,6 +16,7 @@ func main() {
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
 	prNumberStr := os.Getenv("GITHUB_PR_NUMBER")
 	githubToken := os.Getenv("GITHUB_TOKEN")
+	message := os.Args[1]
 
 	if repoOwner == "" || repoName == "" || prNumberStr == "" || githubToken == "" {
 		fmt.Println("Some environment variables are missing")
@@ -39,7 +40,7 @@ func main() {
 
 	// Create a comment
 	comment := &github.IssueComment{
-		Body: github.String("Hello World"),
+		Body: github.String(message),
 	}
 	_, _, err = client.Issues.CreateComment(ctx, repoOwner, repoName, prNumber, comment)
 	if err != nil {

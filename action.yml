@@ -1,0 +1,12 @@
+name: 'Pull Request Decoration'
+description: 'Comments on a pull request with a specified message'
+inputs:
+  message:
+    description: 'The message to comment on the pull request'
+    required: true
+    default: 'Hello World'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.message }}
